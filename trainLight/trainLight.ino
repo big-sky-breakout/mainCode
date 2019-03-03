@@ -6,6 +6,7 @@ bool going = false;
 void setup() {
   // Setup leds for output mode
   pinMode(red, OUTPUT);
+  pinMode(green, OUTPUT);
   pinMode(yellow, OUTPUT);
 }
 
@@ -22,7 +23,7 @@ void blinking(int led, int times, int seconds){
 
 void loop() {
   if(!going){ // If we aren't going
-    going = true; // Set variable to say that we are and blink the leds
+    going = true; // Set variable to say that we are and blinking the leds
     blinking(red, 5, 1); // The first thing is the led color, the second one is how many times, and the third one is the delay between the blinks
     blinking(green, 5, 1);
     blinking(yellow, 5, 1);
