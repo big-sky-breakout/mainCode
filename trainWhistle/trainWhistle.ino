@@ -6,7 +6,7 @@ int debounce = 0;
 // End of sound
 void setup() {
   pinMode(switchPin, INPUT);
-  Serial.begin(9600); //Open Serial connection for debugging
+  Serial.begin(9600); // Open Serial connection for debugging
 }
 
 
