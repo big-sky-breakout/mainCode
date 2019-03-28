@@ -1,6 +1,6 @@
 #include <LiquidCrystal.h> // Used for displaying lcd
 
-#define buttonPin  6
+#define buttonPin  8
 #define resetButtonPin 7
 #define buzzer 9
 #define ledPin 1
@@ -8,14 +8,15 @@
 bool finished = false;
 int currentPositionLCD = 0;
 // initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 const int relay = 13;   // Arduino pin that triggers the mag lock relay
-String messageBuilder = "";
+String messageBuilder = ""; // S tring to hold all of the characters
 
-bool isLocked = true;
+bool isLocked = true; // Tells if the program should lock the maglock or not
 
-int pot = 50;
+int pot = 50; // pot sensitivity
 bool buttonState, lastButtonState, cheker = false, linecheker = false, longclick = true, resetButtonState, resetButtonStateLast;
 int pause_value, signal_length = 0, pause = 0;
 
@@ -42,13 +43,13 @@ void setup() { //initial values setup
 
 void loop() {
   lcd.noCursor();
-  if (messageBuilder.length() > 8 and !finished) {
-    delay(1000);
-    lcd.clear();
-    messageBuilder = "";
-  }
+  //if (messageBuilder.length() > 8 and !finished) {
+    //delay(1000);
+    //lcd.clear();
+    //messageBuilder = "";
+  //}
   if (isLocked == true) {
-    digitalWrite(relay, HIGH);
+    digitalWrite(relay, LOW);
   }
   pause_value = map(analogRead(pot), 1023, 0, 70, 300); //setting up the pause_value variable via a potentiometer
   buttonState = !digitalRead(buttonPin); //inverting the value of buttonpin due to using input pullup with the button
@@ -128,7 +129,7 @@ void translate(String text) { // more efficient managment of string to letter co
   {
     if (text == "*-") // ugly bodge but it works
     {
-      slovo = 'A';
+      //slovo = 'A';
       break;
     }
     //        if (text=="-----") {
@@ -154,13 +155,14 @@ void translate(String text) { // more efficient managment of string to letter co
   lcd.print((char)slovo);
   currentPositionLCD += 1;
   messageBuilder += (char)slovo;
-  if (messageBuilder.equals("SOSKCURRY")) {
-    Serial.println("SOSKCURRY");
+  if (messageBuilder.equals("SOSKDCRRY")) {
+    Serial.println("SOSKDCRRY");
     lcd.clear();
-    lcd.print("SOSKCURRY");
+    lcd.print("SOSKDCRRY");
     finished = true;
-    digitalWrite(relay, LOW);
     isLocked = false;
+    digitalWrite(relay, HIGH);
+
   }
 
 }

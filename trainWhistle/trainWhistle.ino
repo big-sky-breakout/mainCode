@@ -45,7 +45,7 @@ void loop() {
   if (limitSwitchState == LOW and reedSwitchState == HIGH)
   {
     Serial.println("Both");
-    digitalWrite(relayF1, LOW);
+    digitalWrite(relayF1, HIGH);
     digitalWrite(relayF2, LOW);
     if (not pushed) {
       reset = false;
@@ -57,8 +57,8 @@ void loop() {
   }
   else if (limitSwitchState == LOW) {
     Serial.println("Limit");
-    digitalWrite(relayF1, HIGH);
-    digitalWrite(relayF2, LOW);
+    digitalWrite(relayF1, LOW);
+    digitalWrite(relayF2, HIGH);
     if (not pushed) {
       reset = false;
       extendActuator();
@@ -69,7 +69,7 @@ void loop() {
   }
   else {
     Serial.println("None");
-    digitalWrite(relayF1, HIGH);
+    digitalWrite(relayF1, LOW);
     digitalWrite(relayF2, LOW);
     if (not reset) {
       reset = true;
